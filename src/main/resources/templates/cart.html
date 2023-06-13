@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #ffefba, #bae1ff);
+        }
+
+        .btn-primary:hover,
+        .nav-link:hover {
+            animation: pulse-animation 1s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .navbar .nav-link:hover {
+            animation: pulse-animation 1s infinite;
+        }
+
+
+
+        .menu-title,
+        .nav-link {
+            color: blue !important;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin-bottom: 0;
+        }
+    </style>
+    <title>BookSeller</title>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-custom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/logo.png}" src="../static/images/logo.png" width="auto" height="40"
+                 class="d-inline-block align-top" alt=""/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/shop}" href="#">menu</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">zaloguj</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">wyloguj</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/myOrders}" href="#">zamowienia</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/cart}" href="#">koszyk</a>
+                </li>
+                <li class="nav-item active">
+                    <span class="nav-link" th:text="${cartCount}"></span>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div class="container">
+
+        <!--Section: Block Content-->
+        <section class="mt-5 mb-4">
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-8">
+
+                    <!-- Card -->
+                    <div class="card wish-list mb-4">
+                        <div class="card-body">
+
+                            <h5 class="mb-4">Ilość przedmiotów: <span th:text="${cartCount}">2</span></h5>
+
+                            <div class="row mb-4" th:each="item, iStat : ${cart}">
+                                <div class="col-md-5 col-lg-3 col-xl-3">
+                                    <div class="mb-3 mb-md-0">
+                                        <img class="img-fluid w-100" th:src="@{${'/productImages/' + item.imageName}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-lg-9 col-xl-9">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <h5 th:text="${item.name}"></h5>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <a href="#!" th:href="@{/cart/removeItem/{index}(index=${iStat.index})}" type="button" class="card-link-secondary small text-uppercase mr-3"><i class="fas fa-trash-alt mr-1"></i> Usuń przedmiot</a>
+                                            </div>
+                                            <p class="mb-0"><span><strong>PLN<span th:text="${item.price}"></span></strong></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="mb-3">W twoim koszyku</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                    Do zapłaty:
+                                    <span>PLN<span th:text="${total}"></span></span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    Dostawa
+                                    <span>Gratis</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                    <div>
+                                        <strong>Razem</strong>
+                                        <strong>
+                                            <p class="mb-0"></p>
+                                        </strong>
+                                    </div>
+                                    <span><strong>PLN<span th:text="${total}"></span></strong></span>
+                                </li>
+                            </ul>
+                            <form th:action="@{/cart/placeOrder}" method="post">
+                                <button type="submit" class="btn btn-primary btn-block waves-effect waves-light">Zamów</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+</body>
+
+</html>

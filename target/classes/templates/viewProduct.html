@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+    body {
+    background-image: linear-gradient(to right, #ffefba, #bae1ff);
+    }
+    .navbar .nav-link:hover {
+            animation: pulse-animation 1s infinite;
+        }
+    .btn-primary {
+            border: 2px solid blue;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            animation: pulse-animation 1s infinite;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-success:hover {
+            animation: pulse-animation 1s infinite;
+        }
+
+    @keyframes pulse-animation {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .menu-title, .nav-link {
+    color: blue !important;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-bottom: 0;
+    }
+    </style>
+
+    <title>BookSeller</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-custom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/logo.png}" src="../static/images/logo.png" width="auto" height="40"
+                 class="d-inline-block align-top" alt=""/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/shop}" href="#">menu</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">zaloguj</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">wyloguj</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/myOrders}" href="#">zamowienia</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/cart}" href="#">koszyk</a>
+                </li>
+                <li class="nav-item active">
+                    <span class="nav-link" th:text="${cartCount}"></span>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-5 d-flex justify-content-center">
+            <img class="mt-5" height="300px" width="300px" src="" th:src="@{${'/productImages/' + product.imageName}}"
+                 alt="">
+        </div>
+        <div class="col-sm-7 mt-5">
+            <h2 th:text="${product.name}"></h2>
+            <p th:text="${product.category.name}"></p>
+            <p th:text="${product.author}"></p>
+            <h2>PLN <span th:text="${product.price}"></span></h2>
+
+            <p th:text="${product.description}"></p>
+            <a href="" th:href="@{/addToCart/{id}(id = ${product.id})}" class="btn btn-primary">Dodaj do koszyka</a>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>ERROR</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            font-size: 1.2em;
+            background-image: linear-gradient(to right, #333333, #000000);
+            color: white;
+
+        }
+        .error-message {
+            color: red;
+            font-size: 2em;
+        }
+        .error-details {
+            margin-top: 1em;
+            color: #666;
+        }
+        .error-details p {
+            margin-bottom: 0.5em;
+        }
+        .error-details a {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+
+<h1>Wystąpił błąd!</h1>
+<!--<div class="error-message" th:text="${errorMessage}">Komunikat o błędzie</div>-->
+<!--<div class="error-details" th:text="${detailedMessage}">Szczegółowy komunikat</div>-->
+<div class="error-details">
+    <img src="/images/pngegg.png" width="350" height="350">
+    <p>Przepraszamy za utrudnienia. Nasi programiści pracują nad rozwiązaniem problemu.</p>
+    <p><a href="#" onclick="history.go(-1)">Kliknij tutaj</a>, aby wrócić do poprzedniej strony.</p>
+</div>
+
+
+</body>
+</html>

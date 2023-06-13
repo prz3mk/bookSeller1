@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: linear-gradient(to right, #ffefba, #bae1ff);
+        }
+
+         .btn-primary-custom:hover {
+        animation: pulse-animation 1s infinite;
+    }
+
+    .btn-danger-custom:hover {
+        animation: shake-animation 0.5s infinite;
+    }
+
+    .btn-warning-custom:hover {
+        animation: spin-animation 1s forwards;
+    }
+
+        @keyframes pulse-animation {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shake-animation {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-5px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes spin-animation {
+            0% {
+                transform: rotate(0);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+            animation-fill-mode: forwards;
+        }
+
+        .menu-title, .nav-link {
+            color: blue !important;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin-bottom: 0;
+    }
+
+    .navbar .nav-link:hover {
+            animation: pulse-animation 1s infinite;
+        }
+    </style>
+    <title>BookSeller</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/logo2.png}" src="../static/images/logo2.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/admin}" href="#">Panel administratora</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/logout}" href="#">Wyloguj</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+
+    <a th:href="@{/admin/categories/add}" style="margin: 20px 0" class="btn btn-primary btn-primary-custom">Dodaj gatunek</a>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">NR</th>
+            <th scope="col">GATUNEK</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Update</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="category, iStat : ${categories}">
+            <th scope="row" th:text="${iStat.index + 1}">1</th>
+            <td th:text="${category.name}">Larry</td>
+
+            <td><a href="" th:href="@{/admin/categories/delete/{id}(id=${category.id})}" class="btn btn-danger btn-danger-custom">Delete</a></td>
+            <td><a href="" th:href="@{/admin/categories/update/{id}(id=${category.id})}" class="btn btn-warning btn-warning-custom">Update</a></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

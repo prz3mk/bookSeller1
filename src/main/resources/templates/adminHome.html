@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+        /* Resetowanie stylów dla elementów HTML */
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            font-size: 100%;
+            vertical-align: baseline;
+            background: transparent;
+        }
+
+        /* Globalne style */
+        body {
+            background: linear-gradient(to right, #ffefba, #bae1ff);
+            color: #333333;
+            font-family: Arial, sans-serif;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #ffffff;
+            transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+            animation: pulse-animation 1s infinite;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #ffffff;
+            transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+            transform: scale(1.1);
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #ffffff;
+            transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #d39e00;
+            transform: scale(1.1);
+        }
+
+        .row.no-gutters {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .col-sm-3 {
+            padding-right: 0;
+            padding-left: 0;
+            margin: 60px;
+            text-align: center;
+            background-color: #e0a800;
+        }
+
+        .admin {
+            color: blue;
+            font-weight: bold;
+        }
+
+        .card-title {
+            color: #452d09;
+        }
+
+        .card {
+            background: white;
+        }
+
+        .card-link {
+            transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #ffffff;
+        }
+
+        .card-link:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse-animation {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .navbar .nav-link:hover {
+            animation: pulse-animation 1s infinite;
+        }
+
+        .menu-title, .nav-link {
+            color: blue !important;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin-bottom: 0;
+        }
+
+    </style>
+
+    <title>BookSeller</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/logo2.png}" src="../static/images/logo2.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/admin}" href="#">Panel administratora</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/logout}" href="#">Wyloguj</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col-sm-3 pt-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Gatunki</h4>
+                    <p class="card-text"></p>
+                    <a href="#" th:href="@{/admin/categories}" class="card-link btn btn-primary">Zarządzaj</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 pt-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Produkty</h4>
+                    <p class="card-text"></p>
+                    <a href="#" th:href="@{/admin/products}" class="card-link btn btn-primary">Zarządzaj</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 pt-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Zamówienia</h4>
+                    <p class="card-text"></p>
+                    <a href="#" th:href="@{/admin/allOrders}" class="card-link btn btn-primary">Zarządzaj</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 pt-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Klienci</h4>
+                    <p class="card-text"></p>
+                    <a href="#" th:href="@{/admin/allClients}" class="card-link btn btn-primary">Zarządzaj</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
